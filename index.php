@@ -1,30 +1,26 @@
 <?php
-require_once 'config/conexao.php';
+// 1. Liga os erros
+ini_set('display_errors', 1);
+error_reporting(E_ALL);
 
-// No seu conexao.php, a variável se chama $pdo, mas ela é um objeto MYSQLI.
-// Vamos garantir que a consulta seja feita do jeito certo para MySQLi.
+// 2. Chama a conexão usando o caminho absoluto para não ter erro
+require_once __DIR__ . '/config/conexao.php';
+
+// 3. TESTE: Se isso mostrar "NULL", o erro está dentro do conexao.php
+// var_dump($pdo); 
 
 $lista_maquinas = [];
 
-// 1. Prepara a consulta
-$stmt = $pdo->prepare("SELECT * FROM tbl_maquinas");
-
-if ($stmt) {
-    // 2. Executa
-    $stmt->execute();
+// Verificamos se a variável existe antes de usar
+if (isset($pdo) && $pdo instanceof mysqli) {
+    $sql = "SELECT * FROM tbl_maquinas";
+    $result = $pdo->query($sql);
     
-    // 3. Pega o resultado (O pulo do gato para MySQLi)
-    $result = $stmt->get_result();
-    
-    // 4. Transforma em array
     if ($result) {
         $lista_maquinas = $result->fetch_all(MYSQLI_ASSOC);
     }
-    
-    $stmt->close();
 } else {
-    // Caso a tabela não exista ou o SQL esteja errado
-    echo "Erro na consulta: " . $pdo->error;
+    die("Erro crítico: A variável \$pdo não foi definida no conexao.php ou o caminho está errado.");
 }
 ?>
 

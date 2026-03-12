@@ -1,15 +1,18 @@
 <?php
-// 1. Configurações de acesso
-$host = 'localhost';
-$user = 'root';
-$password = 'Fobos@Deimos07';
-$database = 'sol_nascente';
+require_once __DIR__ . '/../vendor/autoload.php';
 
-// 2. Tentativa de conexão
-try {
-    $pdo = new PDO("mysql:host=$host;dbname=$database;charset=utf8", $user, $password);
-    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-} catch (PDOException $e) {
-    die("❌ Erro ao conectar ao banco de dados: " . $e->getMessage());
+$dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . '/../');
+$dotenv->load();
+
+$host = $_ENV['DB_HOST'];
+$user = $_ENV['DB_USER'];
+$pass = $_ENV['DB_PASS'];
+$db   = $_ENV['DB_NAME'];
+
+// Criamos a conexão
+$pdo = new mysqli($host, $user, $pass, $db);
+
+// Checamos se funcionou
+if ($pdo->connect_error) {
+    die("Erro de conexão: " . $pdo->connect_error);
 }
-?>
