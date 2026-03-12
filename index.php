@@ -42,7 +42,7 @@ try {
     </div>
 
     <section>
-        <form action="acoes/salvar_falha.php" method="POST">
+        <form action="acoes/salva_falha.php" method="POST">
             <div class="form-group">
                 <label>Nome do Equipamento:</label>
                 <input type="text" name="nome_equipamento" placeholder="Ex: Prensa Hidráulica" required>
