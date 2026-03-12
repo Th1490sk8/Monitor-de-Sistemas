@@ -11,7 +11,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $stmt = $pdo->prepare($sql);
         
         if ($stmt->execute([':nome' => $nome, ':status' => $status])) {
-            header("Location: ../index.php?sucesso=1");
+            header("Location: ../index.php?status=cadastrado");
             exit();
         }
     } catch (PDOException $e) {

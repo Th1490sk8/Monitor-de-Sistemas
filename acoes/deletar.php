@@ -9,7 +9,7 @@ if (isset($_GET['id'])) {
         $stmt = $pdo->prepare($sql);
         
         if ($stmt->execute([':id' => $id])) {
-            header("Location: ../index.php?deletado=1");
+            header("Location: ../index.php?status=deletado");
             exit();
         }
     } catch (PDOException $e) {

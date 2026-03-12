@@ -1,4 +1,23 @@
 <main class="container">
+
+<?php if (isset($_GET['status'])): ?>
+    <?php if ($_GET['status'] == 'cadastrado'): ?>
+        <div style="background: #e0f2fe; color: #0369a1; padding: 15px; border-radius: 8px; margin-bottom: 20px; border: 1px solid #bae6fd; text-align: center;">
+            ✨ Novo equipamento cadastrado com sucesso!
+        </div>
+
+    <?php elseif ($_GET['status'] == 'editado'): ?>
+        <div style="background: #dcfce7; color: #166534; padding: 15px; border-radius: 8px; margin-bottom: 20px; border: 1px solid #bbf7d0; text-align: center;">
+            ✅ Equipamento atualizado com sucesso!
+        </div>
+
+    <?php elseif ($_GET['status'] == 'deletado'): ?>
+        <div style="background: #fee2e2; color: #991b1b; padding: 15px; border-radius: 8px; margin-bottom: 20px; border: 1px solid #fecaca; text-align: center;">
+            🗑️ Equipamento removido do sistema.
+        </div>
+    <?php endif; ?>
+<?php endif; ?>
+
     <section class="dashboard-grid">
         <div class="card-status card-total">
             <span class="card-label">Total</span>
@@ -54,9 +73,14 @@
                                 </span>
                             </td>
                             <td class="text-center">
+                                <<a href="editar_maquina.php?id=<?= $maquina['id_maquina'] ?>" 
+                                    style="color: var(--primary-color); text-decoration: none; font-weight: 700; margin-right: 10px;">
+                                    Editar
+                                </a>
+
                                 <a href="acoes/deletar.php?id=<?= $maquina['id_maquina'] ?>" 
-                                   onclick="return confirm('Excluir este registro?');" 
-                                   class="btn-delete">Excluir</a>
+                                    onclick="return confirm('Excluir este registro?');" 
+                                    class="btn-delete">Excluir</a>
                             </td>
                         </tr>
                     <?php endforeach; ?>
