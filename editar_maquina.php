@@ -1,4 +1,13 @@
 <?php
+
+session_start();
+
+// Verifica se existe a sessão do usuário. Se não existir, redireciona para o login.
+if (!isset($_SESSION['usuario_id'])) {
+    header("Location: login.php");
+    exit(); // Interrompe o carregamento da página aqui
+}
+
 require_once __DIR__ . '/config/conexao.php';
 require_once __DIR__ . '/funcoes/maquina_consulta.php';
 
