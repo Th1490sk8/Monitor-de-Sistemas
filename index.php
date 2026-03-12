@@ -1,14 +1,22 @@
 <?php
 require_once 'config/conexao.php';
 
-// Busca os dados na tabela tbl_maquinas
+// Busca os dados na tabela tbl_maquinas usando MySQLi
 try {
-    $stmt = $pdo->prepare("SELECT * FROM tbl_maquinas");
-    $stmt->execute();
-    $lista_maquinas = $stmt->fetchAll(PDO::FETCH_ASSOC);
-} catch (PDOException $e) {
+    // No MySQLi, usamos a variável $pdo (que definimos no conexao.php)
+    $query = "SELECT * FROM tbl_maquinas";
+    $stmt = $pdo->prepare($query);
+    
+    if ($stmt) {
+        $stmt->execute();
+        $result = $stmt->get_result(); // Necessário no MySQLi para obter o conjunto de resultados
+        $lista_maquinas = $result->fetch_all(MYSQLI_ASSOC); // O equivalente ao fetchAll do PDO
+    } else {
+        $lista_maquinas = [];
+    }
+} catch (Exception $e) {
     $lista_maquinas = [];
-    // Log de erro silencioso para não poluir a interface
+    // Opcional: echo "Erro técnico: " . $e->getMessage();
 }
 ?>
 
@@ -64,7 +72,7 @@ try {
                 </tr>
             </thead>
             <tbody>
-                <?php if (count($lista_maquinas) > 0): ?>
+                <?php if (!empty($lista_maquinas)): ?>
                     <?php foreach ($lista_maquinas as $maquina): ?>
                         <tr>
                             <td><strong><?php echo htmlspecialchars($maquina['nome_equipamento']); ?></strong></td>
@@ -74,10 +82,10 @@ try {
                                 </span>
                             </td>
                             <td>
-                                <a href="acoes/deletar.php?id=<?php echo @$maquina['id_maquina']; ?>" 
+                                <a href="acoes/deletar.php?id=<?php echo $maquina['id_maquina'] ?? $maquina['id']; ?>" 
                                    onclick="return confirm('Deseja realmente excluir este registro?');" 
                                    class="btn-delete">
-                                   Excluir
+                                    Excluir
                                 </a>
                             </td>
                         </tr>
