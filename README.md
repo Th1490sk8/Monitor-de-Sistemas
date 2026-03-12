@@ -1,24 +1,36 @@
-# 🖥️ Monitor de Sistemas
+# 🛠️ Monitor de Sistemas - Resende-Tech
 
-Sistema de monitorização desenvolvido em PHP e MySQL para gestão e acompanhamento de processos/dados.
+Sistema de monitoramento e gerenciamento de status de equipamentos, desenvolvido para controle de operabilidade, falhas e manutenções.
 
-## 🚀 Tecnologias Utilizadas
+## 🚀 Funcionalidades
+- **Dashboard Dinâmico**: Visualização rápida do total de máquinas, equipamentos em manutenção e em falha.
+- **Gerenciamento de Máquinas**: Cadastro e exclusão de equipamentos com atualização em tempo real.
+- **Simulação de Falha**: Interface interativa para testes de sistema.
+- **Arquitetura Organizada**: Separação clara entre lógica de negócio, rotas e visualização.
 
-* **PHP 8.x** (Lógica de backend)
-* **MySQL** (Base de dados)
-* **Composer** (Gestão de dependências)
-* **vlucas/phpdotenv** (Segurança de variáveis de ambiente)
-* **CSS3/HTML5** (Interface e estilização)
+## 🏗️ Arquitetura do Projeto
+O projeto foi reestruturado para seguir boas práticas de desenvolvimento PHP, utilizando uma organização modular:
 
-## 📦 Funcionalidades
+- **`/acoes`**: Scripts de processamento (Salvar/Deletar).
+- **`/assets`**: Recursos estáticos (CSS/JS).
+- **`/config`**: Configurações de banco de dados e conexão PDO.
+- **`/funcoes`**: Camada de lógica e consultas SQL (Data Access).
+- **`/includes`**: Componentes reutilizáveis e arquivos de visualização (Views).
+- **`index.php`**: Ponto de entrada que coordena o carregamento dos dados e das views.
 
-* Conexão segura com base de dados.
-* Organização de rotas e ações (`acoes/`).
-* Interface responsiva (`assets/css/`).
-* Criação automatizada de tabelas (`criar_tabela.php`).
+## 🛠️ Tecnologias Utilizadas
+- **PHP 8.x**
+- **PDO (PHP Data Objects)**: Para uma conexão segura e preparada contra SQL Injection.
+- **MySQL/MariaDB**: Banco de dados relacional.
+- **Composer**: Gerenciador de dependências.
+- **CSS3 & JavaScript**: Interface responsiva e interativa.
 
-## 🛠️ Como Instalar e Rodar o Projeto
+## 🔧 Como instalar
+1. Clone o repositório.
+2. Certifique-se de ter o MySQL rodando e crie o banco de dados conforme as tabelas em `/config/criar_tabela.php`.
+3. Configure o arquivo `.env` ou `conexao.php` com suas credenciais locais.
+4. Execute `composer install` para baixar as dependências.
+5. Acesse via `localhost:8000`.
 
-1. **Clone o repositório:**
-   ```bash
-   git clone [https://github.com/Th1490sk8/Monitor-de-Sistemas.git](https://github.com/Th1490sk8/Monitor-de-Sistemas.git)
+---
+Desenvolvido por **Thiago Barbosa** - Estudo de PHP Profissional.
