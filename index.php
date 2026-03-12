@@ -1,5 +1,5 @@
 <?php
-// Ativa a exibição de erros para debug (ajuda muito a descobrir o culpado)
+// Ativa a exibição de erros para debug
 ini_set('display_errors', 1);
 error_reporting(E_ALL);
 
@@ -25,20 +25,27 @@ include_once __DIR__ . '/includes/header.php';
     
     <section style="display: flex; gap: 15px; justify-content: center; margin: 30px 0; flex-wrap: wrap;">
         <div style="background: white; padding: 15px 20px; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); text-align: center; border-left: 5px solid #3b82f6; min-width: 160px;">
-            <span style="display: block; font-size: 0.7rem; color: #64748b; text-transform: uppercase; font-weight: bold;">Total</span>
+            <span style="display: block; font-size: 0.7rem; color: #64748b; text-transform: uppercase; font-weight: bold; letter-spacing: 1px;">Total</span>
             <span style="font-size: 1.8rem; font-weight: bold; color: #1e293b;"><?= $total_maquinas ?></span>
         </div>
 
         <div style="background: white; padding: 15px 20px; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); text-align: center; border-left: 5px solid #eab308; min-width: 160px;">
-            <span style="display: block; font-size: 0.7rem; color: #64748b; text-transform: uppercase; font-weight: bold;">Em Manutenção</span>
+            <span style="display: block; font-size: 0.7rem; color: #64748b; text-transform: uppercase; font-weight: bold; letter-spacing: 1px;">Em Manutenção</span>
             <span style="font-size: 1.8rem; font-weight: bold; color: #854d0e;"><?= $total_manutencao ?></span>
         </div>
 
         <div style="background: white; padding: 15px 20px; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); text-align: center; border-left: 5px solid <?= $total_falhas > 0 ? '#ef4444' : '#10b981' ?>; min-width: 160px;">
-            <span style="display: block; font-size: 0.7rem; color: #64748b; text-transform: uppercase; font-weight: bold;">Em Falha</span>
+            <span style="display: block; font-size: 0.7rem; color: #64748b; text-transform: uppercase; font-weight: bold; letter-spacing: 1px;">Em Falha</span>
             <span style="font-size: 1.8rem; font-weight: bold; color: <?= $total_falhas > 0 ? '#ef4444' : '#10b981' ?>;"><?= $total_falhas ?></span>
         </div>
     </section>
+
+    <div style="text-align: center; margin-bottom: 30px; background: #f8fafc; padding: 20px; border-radius: 12px; border: 1px dashed #cbd5e1;">
+        <p id="sistema" style="font-weight: 600; font-size: 1.1rem; margin-bottom: 10px; color: #334155;">Sistema de Sinergia</p>
+        <button onclick="simularFalha()" style="background-color: #67c6e5; color: #1e3a8a; border: none; padding: 10px 25px; border-radius: 6px; font-weight: bold; cursor: pointer; transition: 0.3s;">
+            Simular Falha
+        </button>
+    </div>
 
     <section style="background: white; padding: 20px; border-radius: 10px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); margin-bottom: 30px;">
         <form action="acoes/salva_falha.php" method="POST" style="display: flex; gap: 10px; flex-wrap: wrap; align-items: center; justify-content: center;">
