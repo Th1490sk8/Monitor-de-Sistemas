@@ -1,22 +1,30 @@
 <?php
 require_once 'config/conexao.php';
 
-// Busca os dados na tabela tbl_maquinas usando MySQLi
-try {
-    // No MySQLi, usamos a variável $pdo (que definimos no conexao.php)
-    $query = "SELECT * FROM tbl_maquinas";
-    $stmt = $pdo->prepare($query);
+// No seu conexao.php, a variável se chama $pdo, mas ela é um objeto MYSQLI.
+// Vamos garantir que a consulta seja feita do jeito certo para MySQLi.
+
+$lista_maquinas = [];
+
+// 1. Prepara a consulta
+$stmt = $pdo->prepare("SELECT * FROM tbl_maquinas");
+
+if ($stmt) {
+    // 2. Executa
+    $stmt->execute();
     
-    if ($stmt) {
-        $stmt->execute();
-        $result = $stmt->get_result(); // Necessário no MySQLi para obter o conjunto de resultados
-        $lista_maquinas = $result->fetch_all(MYSQLI_ASSOC); // O equivalente ao fetchAll do PDO
-    } else {
-        $lista_maquinas = [];
+    // 3. Pega o resultado (O pulo do gato para MySQLi)
+    $result = $stmt->get_result();
+    
+    // 4. Transforma em array
+    if ($result) {
+        $lista_maquinas = $result->fetch_all(MYSQLI_ASSOC);
     }
-} catch (Exception $e) {
-    $lista_maquinas = [];
-    // Opcional: echo "Erro técnico: " . $e->getMessage();
+    
+    $stmt->close();
+} else {
+    // Caso a tabela não exista ou o SQL esteja errado
+    echo "Erro na consulta: " . $pdo->error;
 }
 ?>
 
