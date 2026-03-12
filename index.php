@@ -1,27 +1,11 @@
 <?php
-// 1. Liga os erros
-ini_set('display_errors', 1);
-error_reporting(E_ALL);
+require_once 'config/conexao.php';
 
-// 2. Chama a conexão usando o caminho absoluto para não ter erro
-require_once __DIR__ . '/config/conexao.php';
+/** @var PDO $pdo */ // Dica para o VS Code reconhecer o PDO
 
-// 3. TESTE: Se isso mostrar "NULL", o erro está dentro do conexao.php
-// var_dump($pdo); 
-
-$lista_maquinas = [];
-
-// Verificamos se a variável existe antes de usar
-if (isset($pdo) && $pdo instanceof mysqli) {
-    $sql = "SELECT * FROM tbl_maquinas";
-    $result = $pdo->query($sql);
-    
-    if ($result) {
-        $lista_maquinas = $result->fetch_all(MYSQLI_ASSOC);
-    }
-} else {
-    die("Erro crítico: A variável \$pdo não foi definida no conexao.php ou o caminho está errado.");
-}
+// No PDO, você pode dar o query e o fetchAll direto
+$stmt = $pdo->query("SELECT * FROM tbl_maquinas");
+$lista_maquinas = $stmt->fetchAll(); 
 ?>
 
 <!DOCTYPE html>
