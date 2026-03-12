@@ -1,8 +1,8 @@
 <?php
 // 1. Configurações de acesso
 $host = 'localhost';
-$user = '';
-$password = '';
+$user = 'root';
+$password = 'Fobos@Deimos07';
 $database = 'sol_nascente';
 
 // 2. Tentativa de conexão
